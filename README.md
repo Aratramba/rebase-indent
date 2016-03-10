@@ -1,10 +1,5 @@
 # Rebase indent
-Rebase a code block based on the first indentation level.
-
-```jade
-    div
-        | foo
-```
+Rebase an array of indented lines based on the first indentation level.
 
 ```js
 rebase(['  div','    div','      div','        p foo']);

@@ -99,3 +99,12 @@ test('rebase to null', function(assert){
   assert.deepEqual(actual, expected, 'rebase with string base');
   assert.end();
 });
+
+
+test('stop rebase at block with lower level', function(assert){
+  var actual = rebase(['  div','    div','div','  div']);
+  var expected = ['div','  div','div','  div'];
+
+  assert.deepEqual(actual, expected, 'rebase with base deeper than rest of fragment');
+  assert.end();
+});

@@ -31,15 +31,28 @@ function rebase(lines, base) {
 
   var i = 0;
   var l = lines.length;
+  var lineIndent;
+  var hasExceeded = false;
 
   for(; i<l; ++i){
-    if (detectIndent(lines[i]).indent.length >= indentLevel) {
+    lineIndent = detectIndent(lines[i]).indent.length;
+    if (lineIndent >= indentLevel) {
 
       // trim line
       lines[i] = lines[i].substring(indentLevel);
 
       // add new base
       lines[i] = (new Array(base + 1)).join(' ') + lines[i];
+    }
+
+    // if indent has passed base indent, set flag
+    if(lineIndent > indentLevel) {
+      hasExceeded = true;
+    }
+
+    // if indent was exceeded and current level is less than base, quit
+    if (lineIndent < indentLevel && hasExceeded) {
+      break;
     }
   }
   return lines;

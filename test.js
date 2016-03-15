@@ -45,3 +45,57 @@ test('rebase outdented attributes', function(assert){
   assert.deepEqual(actual, expected, 'rebase should work with outdented attributes');
   assert.end();
 });
+
+
+test('rebase to -1', function(assert){
+  var actual = rebase(['  div','    div','      div','        p foo'], -1);
+  var expected = ['div','  div','    div','      p foo'];
+
+  assert.deepEqual(actual, expected, 'rebase with -1 base');
+  assert.end();
+});
+
+
+test('rebase to 0', function(assert){
+  var actual = rebase(['  div','    div','      div','        p foo'], 0);
+  var expected = ['div','  div','    div','      p foo'];
+
+  assert.deepEqual(actual, expected, 'rebase with 0 base');
+  assert.end();
+});
+
+
+test('rebase to 2', function(assert){
+  var actual = rebase(['  div','    div','      div','        p foo'], 2);
+  var expected = ['  div','    div','      div','        p foo'];
+
+  assert.deepEqual(actual, expected, 'rebase with 2 base');
+  assert.end();
+});
+
+
+test('rebase to 4', function(assert){
+  var actual = rebase(['  div','    div','      div','        p foo'], 4);
+  var expected = ['    div','      div','        div','          p foo'];
+
+  assert.deepEqual(actual, expected, 'rebase with 4 base');
+  assert.end();
+});
+
+
+test('rebase to null', function(assert){
+  var actual = rebase(['  div','    div','      div','        p foo'], null);
+  var expected = ['div','  div','    div','      p foo'];
+
+  assert.deepEqual(actual, expected, 'rebase with null base');
+  assert.end();
+});
+
+
+test('rebase to null', function(assert){
+  var actual = rebase(['  div','    div','      div','        p foo'], 'foo');
+  var expected = ['div','  div','    div','      p foo'];
+
+  assert.deepEqual(actual, expected, 'rebase with string base');
+  assert.end();
+});

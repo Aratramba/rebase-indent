@@ -8,8 +8,16 @@ var detectIndent = require('detect-indent');
  * Rebase indentation
  */
 
-function rebase(lines) {
+function rebase(lines, base) {
   lines = lines.slice(0);
+
+  if (typeof base !== 'number') {
+    base = 0;
+  }
+
+  if (base < 0) {
+    base = 0;
+  }
 
   if (!lines.length) {
     return lines;
@@ -17,7 +25,7 @@ function rebase(lines) {
 
   var indentLevel = detectIndent(lines[0]).indent.length;
 
-  if(indentLevel === 0){
+  if(indentLevel === base){
     return lines;
   }
 
@@ -26,7 +34,12 @@ function rebase(lines) {
 
   for(; i<l; ++i){
     if (detectIndent(lines[i]).indent.length >= indentLevel) {
+
+      // trim line
       lines[i] = lines[i].substring(indentLevel);
+
+      // add new base
+      lines[i] = (new Array(base + 1)).join(' ') + lines[i];
     }
   }
   return lines;

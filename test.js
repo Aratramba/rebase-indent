@@ -38,15 +38,6 @@ test('rebase tab', function(assert){
 });
 
 
-test('rebase outdented attributes', function(assert){
-  var actual = rebase('  a(href=""\ntitle=""\n)\n    | foo'.split('\n')).join('\n');
-  var expected = 'a(href=""\ntitle=""\n)\n  | foo';
-
-  assert.deepEqual(actual, expected, 'rebase should work with outdented attributes');
-  assert.end();
-});
-
-
 test('rebase to -1', function(assert){
   var actual = rebase(['  div','    div','      div','        p foo'], -1);
   var expected = ['div','  div','    div','      p foo'];
@@ -102,8 +93,8 @@ test('rebase to null', function(assert){
 
 
 test('stop rebase at block with lower level', function(assert){
-  var actual = rebase(['  div','    div','div','  div']);
-  var expected = ['div','  div','div','  div'];
+  var actual = rebase(['  div','    div','','div','  div']);
+  var expected = ['div','  div','','div','  div'];
 
   assert.deepEqual(actual, expected, 'rebase with base deeper than rest of fragment');
   assert.end();

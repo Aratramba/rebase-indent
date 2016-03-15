@@ -1,15 +1,7 @@
 'use strict';
-/* global module */
+/* global module, require */
 
-var WHITESPACE_REGEX = /^\s*/g;
-
-/**
- * Get indent level of line
- */
-
-function getIndentLevel(line){
-  return line.match(WHITESPACE_REGEX)[0].length;
-}
+var detectIndent = require('detect-indent');
 
 
 /**
@@ -23,7 +15,7 @@ function rebase(lines) {
     return lines;
   }
 
-  var indentLevel = getIndentLevel(lines[0]);
+  var indentLevel = detectIndent(lines[0]).indent.length;
 
   if(indentLevel === 0){
     return lines;
@@ -33,7 +25,7 @@ function rebase(lines) {
   var l = lines.length;
 
   for(; i<l; ++i){
-    if (getIndentLevel(lines[i]) >= indentLevel) {
+    if (detectIndent(lines[i]).indent.length >= indentLevel) {
       lines[i] = lines[i].substring(indentLevel);
     }
   }

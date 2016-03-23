@@ -1,72 +1,36 @@
 # Rebase indent
-Rebase an array of indented lines based on the first indentation level.
+Rebase a string or an array of indented lines based on the first indentation level. 
 
-`rebase(lines:Array, newBase:Number, stopAtLowerIndent:String)`
+`rebase(['  line 1', '  line 2'])`
+`rebase(['  line 1', '  line 2'], 4)`
+`rebase('  line 1\n  line 2')`
 
 ```js
-rebase([
-'  div',
-'    div',
-'      div',
-'        p foo'
-]);
-
-/*
-[
-'div',
-'  div',
-'    div',
-'      p foo'
-];
-*/
+rebase(`
+        line 1
+            line 2
+        line 3
+            line 4
+`);
 ```
 
-optionally specify a new base indent (number).
-
-```js
-rebase([
-'div',
-'  div'
-], 4);
-
-/*
-[
-'    div',
-'      div'
-];
-*/
+```text
+line 1
+    line 2
+line 3
+    line 4
 ```
 
-Optionally set flag to stop when a lower indent level is encountered. This way it only resets the first block.
+Optionally specify a new base indent (number of spaces). Default is 0.
 
 ```js
-rebase([
-'  div',
-'    div',
-'',
-'div',
-'  div'
-], 0, true);
+rebase(`
+    line 1
+        line 2
+`, 10);
+```
 
-// with stop set to true
-/*
-[
-'  div',
-'    div',
-'',
-'div',
-'  div'
-]
-*/
-
-// with stop set to false
-/*
-[
-'div',
-'  div',
-'',
-'div',
-'div'
-]
-*/
+```text
+          line 1
+            line 2
 ```

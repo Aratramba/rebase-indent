@@ -1,22 +1,17 @@
-'use strict';
-/* global module, require */
-
-var detectIndent = require('detect-indent');
-
+const detectIndent = require("detect-indent");
 
 /**
  * Rebase indentation
  */
 
 function rebase(lines, newBase) {
-
-  if (typeof lines === 'string') {
-    lines = lines.split('\n');
+  if (typeof lines === "string") {
+    lines = lines.split("\n");
   }
 
   lines = lines.slice(0);
 
-  if (typeof newBase !== 'number') {
+  if (typeof newBase !== "number") {
     newBase = 0;
   }
 
@@ -28,20 +23,20 @@ function rebase(lines, newBase) {
     return lines;
   }
 
-  var baseIndent = detectIndent(lines[0]).indent.length;
+  const baseIndent = detectIndent(lines[0]).indent.length;
 
-  if(baseIndent === newBase){
+  if (baseIndent === newBase) {
     return lines;
   }
 
-  var i = 0;
-  var l = lines.length;
-  var lineIndent;
+  let i = 0;
+  const l = lines.length;
+  let lineIndent;
 
-  var blockBase = baseIndent;
+  let blockBase = baseIndent;
 
-  for(; i<l; ++i){
-    if (lines[i].trim() === '') {
+  for (; i < l; ++i) {
+    if (lines[i].trim() === "") {
       continue;
     }
 
@@ -52,7 +47,7 @@ function rebase(lines, newBase) {
     }
 
     lines[i] = lines[i].substring(blockBase);
-    lines[i] = (new Array(newBase + 1)).join(' ') + lines[i];
+    lines[i] = new Array(newBase + 1).join(" ") + lines[i];
   }
   return lines;
 }

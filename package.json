@@ -1,6 +1,6 @@
 {
   "name": "rebase-indent",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Get indented code block",
   "main": "index.js",
   "scripts": {
@@ -29,6 +29,6 @@
     "tape": "^4.2.0"
   },
   "dependencies": {
-    "detect-indent": "^4.0.0"
+    "detect-indent": "^6.0.0"
   }
 }
